@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: school-library-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_HOST
+        fromDatabase:
+          name: school-library-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: school-library-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: school-library-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: school-library-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: school-library-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false
+
+databases:
+  - name: school-library-db
+    databaseName: school_library
+    user: library_user
+    plan: free
